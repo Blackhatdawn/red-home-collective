@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWith
 import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs } from 'firebase/firestore'
 export type Role = 'user' | 'agent' | 'admin'
 export function services() {
- const config = {apiKey:import.meta.env.VITE_FIREBASE_API_KEY, authDomain:import.meta.env.VITE_FIREBASE_AUTH_DOMAIN, projectId:import.meta.env.VITE_FIREBASE_PROJECT_ID, appId:import.meta.env.VITE_FIREBASE_APP_ID}
+ const config = {apiKey:import.meta.env['VITE_FIREBASE_API_KEY'], authDomain:import.meta.env['VITE_FIREBASE_AUTH_DOMAIN'], projectId:import.meta.env['VITE_FIREBASE_PROJECT_ID'], appId:import.meta.env['VITE_FIREBASE_APP_ID']}
  if (!config.apiKey || !config.projectId || !config.authDomain || !config.appId) throw new Error('Account access is not available yet. Red Home’s Firebase project needs to be connected.')
  const app = getApps()[0] ?? initializeApp(config)
  return {auth:getAuth(app), db:getFirestore(app)}
@@ -12,7 +12,7 @@ export async function currentAccount() {
  const {auth,db}=services(); await auth.authStateReady(); const user=auth.currentUser
  if (!user) return null
  const token = await user.getIdToken(true); if (!token) return null
- const record=await getDoc(doc(db,'roles',user.uid)); const role=record.data()?.role
+ const record=await getDoc(doc(db,'roles',user.uid)); const role=record.data()?.['role']
  if (role!=='user' && role!=='agent' && role!=='admin') throw new Error('Your account role could not be verified. Please contact Red Home.')
  return {user,role:role as Role}
 }
