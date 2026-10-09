@@ -9,6 +9,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        favorite: "bg-card text-foreground rounded-full shadow-sm hover:text-primary",
+        searchTab: "text-muted-foreground rounded-none bg-transparent hover:text-primary [&.active]:text-primary [&.active]:border-b-2 [&.active]:border-primary",
+        sidebar: "justify-start text-muted-foreground hover:bg-accent [&.active]:bg-accent [&.active]:text-primary",
         default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
