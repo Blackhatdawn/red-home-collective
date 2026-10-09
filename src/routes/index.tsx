@@ -1,24 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
+import {createFileRoute,Link} from '@tanstack/react-router'
+import {ArrowUpRight,ArrowRight,Search,MessagesSquare,KeyRound,ShieldCheck,Globe,Handshake,Check} from 'lucide-react'
+import hero from '@/assets/mallorca-villa.jpg'
+import {Button} from '@/components/ui/button'
+import {properties,metadata} from '@/lib/properties'
+import {PropertyCard} from '@/components/red-home/property-card'
+import {HomeSearch} from '@/components/red-home/search'
+export const Route=createFileRoute('/')({head:()=>metadata('A world of homes. A place for you.','Discover exceptional homes around the world and connect directly with the people behind them on Red Home.'),component:Home})
+function Home(){return <><section className="hero"><img className="hero-photo" src={hero} alt="Mediterranean coastal villa with an infinity pool overlooking the sea" width={1920} height={1024} fetchPriority="high"/><div className="hero-shade"/><div className="hero-content"><div className="hero-eyebrow"><span/> EXTRAORDINARY HOMES. EVERYWHERE.</div><h1>Red Home.<br/>Your next chapter.</h1><p>Find a home that feels like you.<br/>Discover beautiful properties. Connect with real people.</p><HomeSearch/></div><Link to="/property/$id" params={{id:'mallorca-retreat'}} className="hero-property"><div><span>THE MEDITERRANEAN COLLECTION</span><strong>Mallorca, Spain</strong></div><ArrowUpRight size={21}/></Link><div className="hero-bottom"><span>FIND YOUR PLACE IN THE WORLD</span><span>01 <i/> 04</span></div></section><div className="confidence-strip"><span><ShieldCheck/> Trusted listings</span><span><Globe/> A global perspective</span><span><Handshake/> Real people. Direct connections.</span><span><Check/> Your home, your terms</span></div><section className="section featured-section"><div className="section-heading"><div><span className="eyebrow">HANDPICKED FOR YOU</span><h2>Some places just feel right.</h2><p>Exceptional homes. Inspiring locations. A new beginning.</p></div><Button variant="outline" asChild><Link to="/listings">Explore all properties <ArrowUpRight/></Link></Button></div><div className="property-grid">{properties.slice(0,3).map(p=><PropertyCard key={p.id} property={p}/>)}</div></section><section className="how-section"><div className="section"><div className="center-heading"><span className="eyebrow">A SIMPLER WAY HOME</span><h2>Your next chapter, in three steps.</h2><p>Less complexity. More possibility.</p></div><div className="steps-grid">{[{icon:Search,title:'Find your inspiration',text:'Explore homes across borders and discover a place that speaks to you.'},{icon:MessagesSquare,title:'Make a real connection',text:'Speak directly with property owners and agents. Ask questions. Get to know the place.'},{icon:KeyRound,title:'Start your next chapter',text:'Arrange a viewing, take the next step, and make yourself at home.'}].map((s,i)=><div className="step" key={s.title}><div className="step-top"><s.icon/><span>0{i+1}</span></div><h3>{s.title}</h3><p>{s.text}</p></div>)}</div></div></section><section className="trust-section section"><div><span className="eyebrow">PROPERTY IS PERSONAL</span><h2>A world of homes.<br/>Built around you.</h2></div><div><p>Behind every home is a story. And behind every search is a new beginning. We bring people and places together, with the care and clarity you deserve.</p><div className="trust-values"><span><ShieldCheck/> Thoughtfully presented homes</span><span><Globe/> Local character. Global possibilities.</span><span><Handshake/> Human connections, always</span></div><Button variant="link" asChild><Link to="/register">Become part of Red Home <ArrowRight/></Link></Button></div></section></>}
