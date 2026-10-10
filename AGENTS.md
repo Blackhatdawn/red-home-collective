@@ -10,7 +10,7 @@
 <!-- LOVABLE:END -->
 
 ## Red Home architecture
-- Firebase Auth owns sessions and Firestore stores roles in a separate roles collection; signup creates only user access to prevent client-selected privilege escalation.
-- Firebase services initialize lazily from public VITE configuration and role routes fail closed; this keeps SSR safe and unauthorized content hidden.
-- Public property pages share a bundled illustrative catalog and reusable presentation modules; live publishing remains separate from the browsing preview.
-- Firestore security rules enforce role changes and owner-only favorites independently of route guards; client navigation is not a security boundary.
+- Appwrite Account owns sessions; roles come from the profiles table and signup never creates a profile, so users cannot pick their own role.
+- All Appwrite access goes through src/services modules with a lazily created client; SSR stays safe and missing config fails closed.
+- User reads always filter by userId; admin-created rows grant read only to the target user; ledger and audit services expose no update/delete.
+- Public property pages share a bundled illustrative catalog; Appwrite table/bucket permissions, not route guards, are the security boundary.
