@@ -9,5 +9,5 @@ Appwrite owns sign-in (Account), data (TablesDB, database 6ac98d8e0039b4e82213) 
    - documents: create `users`, read `label:admin`.
    - audit_log: create + read `label:admin`; never grant update/delete.
    - bucket documents: create `users`, read `label:admin`.
-4. Expected columns: every table has `userId`. profiles: role, email. properties: title, location, price, status. deposits: amount, currency, status. sales: propertyId, price, status. ledger_entries: amount, type, description. milestones: title, dueDate, status. documents: fileId, name, status. audit_log: action, targetUserId, details.
-5. Roles: signup never creates a profile; missing profile means `user`. Create profile rows (role agent/admin) from the Appwrite Console. The dashboard role guard is navigation only; the permissions above are the security boundary.
+4. Expected columns: every table has `userId`. profiles: email (no role column). properties: title, location, price, status. deposits: amount, currency, status. sales: propertyId, price, status. ledger_entries: amount, type, description. milestones: title, dueDate, status. documents: fileId, name, status. audit_log: action, targetUserId, details.
+5. Roles: read only from the signed-in user's Appwrite labels (`admin`, `agent`, or none = user). Set labels in the Appwrite Console; the app never writes a role. The dashboard role guard is navigation only; the permissions above are the security boundary.

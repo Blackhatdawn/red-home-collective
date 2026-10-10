@@ -58,7 +58,7 @@ function Account(){const {account}=Route.useRouteContext();const {signOut}=useAc
   {tab==='Documents'&&<Documents/>}
  </>}
  {admin&&<>
-  {tab==='Users'&&<RowsTable load={listProfiles} cols={[{key:'userId',label:'User ID'},{key:'email',label:'Email'},{key:'role',label:'Role'}]} empty="No profiles yet."/>}
+  {tab==='Users'&&<RowsTable load={listProfiles} cols={[{key:'userId',label:'User ID'},{key:'email',label:'Email'}]} empty="No profiles yet."/>}
   {tab==='Deposits'&&<AdminSection label="Deposit" load={listAllDeposits} cols={C.dep} empty="No deposits yet." fields={[{key:'amount',label:'Amount',type:'number'},{key:'currency',label:'Currency',options:['EUR','USD','GBP']},{key:'status',label:'Status',options:['pending','received','refunded']}]} submit={(u,d)=>createDeposit(u,d as never)}/>}
   {tab==='Sales'&&<AdminSection label="Sale" load={listAllSales} cols={C.sale} empty="No sales yet." fields={[{key:'propertyId',label:'Property ID'},{key:'price',label:'Price',type:'number'},{key:'status',label:'Status',options:['offer','under_contract','completed']}]} submit={(u,d)=>createSale(u,d as never)}/>}
   {tab==='Ledger'&&<AdminSection label="Ledger entry" load={listAllLedger} cols={C.led} empty="No ledger entries yet." fields={[{key:'type',label:'Type',options:['credit','debit']},{key:'amount',label:'Amount',type:'number'},{key:'description',label:'Description'}]} submit={(u,d)=>createLedgerEntry(u,d as never)}/>}
